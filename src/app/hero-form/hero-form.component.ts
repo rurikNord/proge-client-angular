@@ -1,5 +1,7 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, NgZone, ViewChild } from '@angular/core';
 import { Hero, HeroService } from '../service/hero.service';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-hero-form',
@@ -8,18 +10,27 @@ import { Hero, HeroService } from '../service/hero.service';
 })
 export class HeroFormComponent implements OnInit {
 
+  constructor(private heroService: HeroService) { }
+  heroImages: Array<File>;
   errors = '';
   isLoading = false;
 
-  constructor(private heroService: HeroService) { }
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   @Output()
   playerAdded: EventEmitter<Hero> = new EventEmitter<Hero>();
 
+  addHeroFields = new FormGroup({
+    nickname: new FormControl('', Validators.required),
+    realName: new FormControl('', Validators.required),
+    catchPhrase: new FormControl('', Validators.required),
+    superpowers: new FormControl('', Validators.required)
+  });
+
   ngOnInit(): void {
   }
 
-  addHero(nickname) {
+  addHero(nickname): void {
     this.isLoading = true;
     this.heroService
       .addHero({
@@ -38,4 +49,10 @@ export class HeroFormComponent implements OnInit {
       );
   }
 
+  imageAddorDelete(imageArray): void {
+    this.heroImages = imageArray;
+  }
+  onSubmit() {
+    console.warn(this.addHeroFields.value);
+  }
 }

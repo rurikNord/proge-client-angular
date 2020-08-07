@@ -1,8 +1,7 @@
 <div>
     <span class="help is-info" *ngIf="isLoading">Loading...</span>
     <span class="help is-error" *ngIf="errorMessage">{{ errorMessage }}</span>
-    <app-hero-form (heroAdded)="appendHero($event)"></app-hero-form>
-    <table class="table" *ngIf="!isLoading && !errorMessage">
+    <!-- <table class="table" *ngIf="!isLoading && !errorMessage">
         <thead>
             <tr>
                 <th>ID</th>
@@ -25,5 +24,9 @@
                 </td>
             </tr>
         </tbody>
-    </table>
+    </table> -->
+    <div *ngFor="let hero of testData">
+        <app-hero-card [Hero]=hero></app-hero-card>
+    </div>
 </div>
+<app-hero-form (heroAdded)="appendHero($event)"></app-hero-form>

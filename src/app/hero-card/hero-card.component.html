@@ -1,0 +1,16 @@
+<div class="hero-grid">
+    <a (click)="openHero()" class='thumb-image'>
+        <img class="img-responsive" [src]='this.firstImage'>
+    </a>
+    <div class='thumb-content'>
+        <h6>
+            <a class="hero-name">{{this.nickname}}</a>
+        </h6>
+        <hr>
+        <div class="detalis-container">
+            <label>Настоящее имя: {{ this.realName }}</label>
+            <label>Девиз: {{ this.catchPhrase }}</label>
+        </div>
+        <button type="button" class="button is-primary">Удалить героя</button>
+    </div>
+</div>

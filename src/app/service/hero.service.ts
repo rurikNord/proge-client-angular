@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import Axios from  'axios-observable';
+
 export interface Hero {
   id: Number;
   nickname: string;
   real_name: string;
+  images: string[];
   superpowers: string;
   catch_phrase: string;
   isUpdating: boolean;
@@ -20,14 +21,6 @@ const API_URL = "http://127.0.0.1:8000/api";
 export class HeroService {
 
   constructor(private http: Http) {
-  }
-
-  getHeroAxios(): void {
-    Axios.get(API_URL + '/heroes')
-  .subscribe(
-    response => console.log(response),
-    error => console.log(error)
-  );
   }
 
   getHero(): Observable<Hero[]> {
@@ -54,4 +47,6 @@ export class HeroService {
       new RequestOptions()
     );
   }
+
+
 }
